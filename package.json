@@ -1,0 +1,66 @@
+{
+    "name": "init-script",
+    "publisher": "bodil",
+    "displayName": "Init Script",
+    "description": "Load and run a configuration script when VS Code launches",
+    "version": "0.1.0",
+    "license": "LGPL-3.0+",
+    "author": {
+        "name": "Bodil Stokke",
+        "url": "https://bodil.lol/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bodil/vscode-init-script"
+    },
+    "engines": {
+        "vscode": "^1.36.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "emacsrc",
+        "vimrc"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "contributes": {
+        "configuration": [
+            {
+                "title": "Init Script",
+                "properties": {
+                    "init-script.path": {
+                        "type": "string",
+                        "default": "init",
+                        "markdownDescription": "Path to the init script *without* a `.js` or `.ts` extension, relative to your Code user config directory, or an absolute path. `~` expands to your home directory."
+                    }
+                }
+            }
+        ]
+    },
+    "main": "./out/extension.js",
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile",
+        "test": "node ./out/test/runTest.js"
+    },
+    "dependencies": {
+        "@types/node": "^10.12.21",
+        "@types/vscode": "^1.36.0",
+        "@types/user-home": "^2.0.0",
+        "typescript": "^3.3.1",
+        "user-home": "^2.0.0"
+    },
+    "devDependencies": {
+        "@types/glob": "^7.1.1",
+        "@types/mocha": "^5.2.6",
+        "glob": "^7.1.4",
+        "mocha": "^6.1.4",
+        "tslint": "^5.12.1",
+        "vscode-test": "^1.0.2"
+    }
+}
