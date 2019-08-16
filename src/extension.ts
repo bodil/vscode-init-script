@@ -1,14 +1,15 @@
 import * as vscode from "vscode";
-import * as Path from "path";
+import { posix as Path } from "path";
 import * as Home from "user-home";
-import * as Fs from "fs";
 
 import * as compiler from "./compiler";
 
+const Fs = vscode.workspace.fs;
+
 function present(path: string): Promise<boolean> {
-    return new Promise((resolve, reject) =>
-        Fs.access(path, Fs.constants.R_OK, (err) => resolve(!err))
-    );
+    return new Promise((resolve, reject) => {
+        Fs.stat(vscode.Uri.file(path)).then((stat) => resolve(!!stat), (err) => resolve(false));
+    });
 }
 
 async function resolveModule(path: string): Promise<[string, string]> {
