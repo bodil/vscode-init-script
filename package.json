@@ -38,6 +38,12 @@
                     }
                 }
             }
+        ],
+        "commands": [
+            {
+                "command": "init-script.openInitScript",
+                "title": "Init Script: Open Init Script"
+            }
         ]
     },
     "main": "./out/extension.js",
