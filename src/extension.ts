@@ -7,10 +7,10 @@ import * as compiler from "./compiler";
 const Fs = vscode.workspace.fs;
 
 function present(path: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
         Fs.stat(vscode.Uri.file(path)).then(
             (stat) => resolve(!!stat),
-            (err) => resolve(false)
+            (_err) => resolve(false)
         );
     });
 }
@@ -26,7 +26,7 @@ async function resolveModule(path: string): Promise<[string, string]> {
     return [Path.resolve(tsTarget, moduleName), `${moduleName}.ts`];
 }
 
-function getInitScriptPath(context: vscode.ExtensionContext, storagePath: string): string {
+function getInitScriptPath(storagePath: string): string {
     const config = vscode.workspace.getConfiguration("init-script");
     let scriptSetting: string = config.get("path") || "init";
     if (scriptSetting.startsWith("~")) {
@@ -36,7 +36,7 @@ function getInitScriptPath(context: vscode.ExtensionContext, storagePath: string
 }
 
 async function runInitFile(context: vscode.ExtensionContext, storagePath: string) {
-    const [modulePath, moduleName] = await resolveModule(getInitScriptPath(context, storagePath));
+    const [modulePath, moduleName] = await resolveModule(getInitScriptPath(storagePath));
     try {
         const init = require(modulePath);
         init.init(context);
@@ -48,7 +48,7 @@ async function runInitFile(context: vscode.ExtensionContext, storagePath: string
 
 async function openInitScript(context: vscode.ExtensionContext) {
     const storagePath = Path.resolve(context.globalStoragePath, "../..");
-    const path = getInitScriptPath(context, storagePath);
+    const path = getInitScriptPath(storagePath);
     const tsPath = Path.resolve(path, `${path}.ts`);
     let scriptPath;
     if (await present(tsPath)) {

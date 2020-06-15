@@ -14,7 +14,7 @@
         "url": "https://github.com/bodil/vscode-init-script"
     },
     "engines": {
-        "vscode": "^1.36.0"
+        "vscode": "^1.46.0"
     },
     "categories": [
         "Other"
@@ -55,18 +55,18 @@
         "test": "node ./out/test/runTest.js"
     },
     "dependencies": {
-        "@types/node": "^10.12.21",
-        "@types/vscode": "^1.37.0",
+        "@types/node": "^14.0.13",
         "@types/user-home": "^2.0.0",
-        "typescript": "^3.5.3",
+        "@types/vscode": "^1.46.0",
+        "typescript": "^3.9.5",
         "user-home": "^2.0.0"
     },
     "devDependencies": {
-        "@types/glob": "^7.1.1",
-        "@types/mocha": "^5.2.7",
-        "glob": "^7.1.4",
-        "mocha": "^6.2.0",
-        "tslint": "^5.18.0",
-        "vscode-test": "^1.2.0"
+        "@types/glob": "^7.1.2",
+        "@types/mocha": "^7.0.2",
+        "glob": "^7.1.6",
+        "mocha": "^8.0.1",
+        "tslint": "^6.1.2",
+        "vscode-test": "^1.4.0"
     }
 }
