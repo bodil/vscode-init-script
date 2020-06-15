@@ -32,7 +32,7 @@ function readConfig(
     return Object.assign(defaultOpts, options);
 }
 
-export function compile(entry: string, output: string) {
+export function compile(entry: string, output: string): void {
     const options = readConfig(entry, {
         module: TypeScript.ModuleKind.CommonJS,
         target: TypeScript.ScriptTarget.ES2015,
@@ -47,15 +47,15 @@ export function compile(entry: string, output: string) {
     const program = TypeScript.createProgram([entry], options);
     const emitResult = program.emit();
 
-    let allDiagnostics = TypeScript.getPreEmitDiagnostics(program).concat(emitResult.diagnostics);
+    const allDiagnostics = TypeScript.getPreEmitDiagnostics(program).concat(emitResult.diagnostics);
 
     allDiagnostics.forEach((diagnostic) => {
         let error;
         if (diagnostic.file) {
-            let { line, character } = diagnostic.file.getLineAndCharacterOfPosition(
+            const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(
                 diagnostic.start!
             );
-            let message = TypeScript.flattenDiagnosticMessageText(diagnostic.messageText, "\n");
+            const message = TypeScript.flattenDiagnosticMessageText(diagnostic.messageText, "\n");
             error = `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`;
         } else {
             error = `${TypeScript.flattenDiagnosticMessageText(diagnostic.messageText, "\n")}`;

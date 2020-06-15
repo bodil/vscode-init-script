@@ -56,11 +56,11 @@ async function openInitScript(context: vscode.ExtensionContext) {
     } else {
         scriptPath = Path.resolve(path, `${path}.js`);
     }
-    let doc = await vscode.workspace.openTextDocument(scriptPath);
+    const doc = await vscode.workspace.openTextDocument(scriptPath);
     await vscode.window.showTextDocument(doc);
 }
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext): void {
     const storagePath = Path.resolve(context.globalStoragePath, "../..");
     context.subscriptions.push(
         vscode.commands.registerCommand("init-script.openInitScript", () => openInitScript(context))
@@ -68,4 +68,4 @@ export function activate(context: vscode.ExtensionContext) {
     runInitFile(context, storagePath);
 }
 
-export function deactivate() {}
+export function deactivate(): void {}
